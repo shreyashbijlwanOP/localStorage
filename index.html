@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>fetcinng fake api</title>
+    <style>
+        * {
+            font-family: sans-serif;
+        }
+
+        input {
+            line-height: 1.5rem;
+            text-indent: 2;
+        }
+
+        input[type="button"],
+        #clear {
+            padding: 5px 10px;
+        }
+
+        #clear {
+            margin-top: 20px;
+        }
+        fieldset{
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            color: blueviolet;
+        }
+
+        @media (max-width:455px) {
+            input[type="button"] {
+                margin-top: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <h1>All About Local Storage </h1>
+    <fieldset>
+        <legend>Set data to local storage</legend>
+        <input type="text" id="inputkey" placeholder="Key here">
+        <input type="text" id="inputvlaue" placeholder="Value here">
+        <input type="button" value="Insert" id="button">
+    </fieldset>
+
+    <fieldset>
+        <legend>Data Inside Local Storage</legend>
+        <div class="local-data"></div>
+        <input type="button" value="Clear" id="clear">
+    </fieldset>
+
+    <fieldset>
+        <legend>Methods in Local Storage</legend>
+        <ul>
+            <li>localStorage.<mark>setItem(key => instring||varable , value => instring||variable)</mark> </li>
+            <br>
+            <li>localStorage. <mark>getItem(key => instring||varable) => return value of key</mark>    </li>
+            <br>
+            <li>localStorage.length => <strong>Provide you number of key value pair inside it</strong></li>
+            <br>
+            <li>localStorage.clear() => <strong>will Clear whole Local storage</strong> </li>
+            <br>
+            <li>localStorage.<mark>removeItem(key => instring||varable) =>remove particular key</mark></li>
+            <br>
+            <li>localStorage.<mark>key(index || number &lt; localStorage.length ) => <strong>get you a particular key</strong></mark></li>
+        </ul>
+
+        <p><Strong><em>data inside Local Storage is Persistace and will remain there unless you manually delete it</em></Strong></p>
+    </fieldset>
+
+    <script>
+        let ipkey = document.getElementById('inputkey')
+        let ipvalue = document.getElementById('inputvlaue')
+
+        let btn = document.querySelector('#button')
+
+        
+        //  Inserting key valuee inside local Storage 
+        btn.addEventListener('click', () => {
+            let key = ipkey.value
+            let value = ipvalue.value
+            if (key && value) {
+                localStorage.setItem(key, value)
+                location.reload()
+            }
+            else {
+                alert('please fill the key and value to insert')
+            }
+        })
+        // clering local storage
+        document.getElementById('clear').addEventListener('click', () => {
+            if (localStorage.length) {
+                localStorage.clear()
+                location.reload()
+                console.log(localStorage)
+            }
+            else {
+                alert('nothing in local storage')
+            }
+        })
+
+
+        //  Checking data insde Local storage
+        if (!localStorage.length) {
+            document.querySelector('.local-data').textContent = ` No Data Inside `
+        }
+  
+        else {
+            console.log(localStorage)
+            let out = document.querySelector('.local-data');
+            for (let i = 0; i < localStorage.length; i++) {
+                let key = localStorage.key(i)
+                let value = localStorage.getItem(key);
+                out.innerHTML += `${key}: ${value} <br/>`
+            }
+        }
+    </script>
+</body>
+
+</html>
